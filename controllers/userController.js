@@ -1,10 +1,18 @@
 const bcrypt = require('bcrypt')
-const { validationUser } = require('../middleware/authentication')
+const { validationUser } = require('../middleware/validation')
 const Users = require('../models/Users')
 require('dotenv').config()
 const secretSalt = process.env.secretSalt 
 
 class UserController{
+    static getAllUsers = async(req, res)=>{
+        try {
+            const user = await Users.find()
+            return res.status(200).json(user)
+        } catch (error) {
+            return res.status(500).json({error: error.message})
+        }
+    }
     static createUser  = async(req, res) => {
         const {error} = validationUser(req.body)
         if (error) res.status(400).json({message: error.details[0].message})
@@ -23,7 +31,7 @@ class UserController{
         newUser.password = undefined
         newUser.__v = undefined
 
-        return res.status(201).json(user)
+        return res.status(201).json(newUser)
     }
 }
 
