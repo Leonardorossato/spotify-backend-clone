@@ -1,4 +1,7 @@
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+const privateKey = process.env.privateKey
 
 const userSchema = new mongoose.Schema({
     name : { type: String, required: true},
@@ -13,6 +16,15 @@ const userSchema = new mongoose.Schema({
     isAdmin : { type: Boolean, default: false}
 })
 
+userSchema.methods.gerenateAuthToken = ()=> {
+    const token = jwt.sign({
+        _id: this._id,
+        name: this.name,
+        isAdmin: this.isAdmin
+    }, privateKey, {expiresIn: '7d'})
+
+    return token
+}
 
 const Users = mongoose.model('users', userSchema)
 
