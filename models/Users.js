@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     gender : { type: String, required: true},
     month : { type: String, required: true},
     date : { type: String, required: true},
-    yer : { type: String, required: true},
+    year : { type: String, required: true},
     likedSongs : { type: [String], default: []},
     playlist : { type: [String], default: []},
     isAdmin : { type: Boolean, default: false}
