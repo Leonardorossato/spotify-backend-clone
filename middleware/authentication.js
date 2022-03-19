@@ -14,7 +14,7 @@ const gerenateAuthToken = ()=>{
     return token
 }
 
-const validation = (user) =>{
+const validationUser = (user) =>{
     const schema = Joi.object({
         name: Joi.string().min(5).max(100).required(),
         email: Joi.string().email().required(),
@@ -27,4 +27,15 @@ const validation = (user) =>{
     return schema.validate(user)
 }
 
-module.exports = {gerenateAuthToken, validation}
+const validationSongs = (song) =>{
+    const schema = Joi.object({
+        name: Joi.string().required(),
+        artist: Joi.string().required(),
+        song: Joi.string().required(),
+        img: Joi.string().required(),
+        duration: Joi.string().required(),
+    })
+    return schema.validate(song)
+}
+
+module.exports = {gerenateAuthToken, validationUser, validationSongs}
