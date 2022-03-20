@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
-const process = process.env.process.privateKey
+const privateKey = process.env.privateKey
 
 const authenticationTokenUser = (req,res, next) => {
-    const token = req.headers("x-auth-token")
+    const token = req.header("x-auth-token")
     if(!token) res.status(400).json({message: "Access Denied. No token provided."})
 
     jwt.verify(token, privateKey, (err, validateToken)=>{
@@ -14,7 +14,7 @@ const authenticationTokenUser = (req,res, next) => {
 }
 
 const authenticationTokenAdmin = (req,res, next) => {
-    const token = req.headers("x-auth-token")
+    const token = req.header("x-auth-token")
     if(!token) res.status(400).json({message: "Access Denied. No token provided."})
 
     jwt.verify(token, privateKey, (err, validateToken)=>{
