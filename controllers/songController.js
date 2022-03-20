@@ -4,12 +4,15 @@ const Users = require("../models/Users")
 
 class SongController{
     static createSong = async(req, res) => {
-        const {error} = validationSongs(req.body)
-        if(error) return res.status(400).json({message: error.details[0].message})
+        try {
+            const {error} = validationSongs(req.body)
+            if(error) return res.status(400).json({message: error.details[0].message})
 
-        const song = await Songs(req.body).save()
-        return res.status(201).json({data: song, message:"Song created successfully."})
-
+            const song = await Songs(req.body).save()
+            return res.status(201).json({data: song, message:"Song created successfully."})
+        } catch (error) {
+            return res.status(404).json({error: error.message})
+        }
     }
 
     static getAllSong = async(req, res) => {
