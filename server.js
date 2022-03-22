@@ -7,7 +7,6 @@ const mongoConnection = require('./connection/mongoConnection')
 const userRouter = require('./routes/userRouter')
 const songRouter = require('./routes/songRouter')
 
-
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.mongoConnection = mongoConnection
