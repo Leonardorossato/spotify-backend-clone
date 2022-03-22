@@ -9,7 +9,7 @@ const validationUser = (user) =>{
         month: Joi.string().required(),
         date: Joi.string().required(),
         year: Joi.string().required(),
-        gender: Joi.string().valid("male", "female", "non-binary").required(),
+        gender: Joi.string().valid("male", "female", "non-binary").required()
     })
     return schema.validate(user)
 }
@@ -30,7 +30,7 @@ const validationPlaylist = (playlist) => {
         name: Joi.string().required(),
         users: Joi.string().required(),
         description: Joi.string().allow(""),
-        songs: Joi.array().required(),
+        songs: Joi.array().required(Joi.string()),
         img: Joi.string().allow(""),
     })
     return schema.validate(playlist)
