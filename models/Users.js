@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema({
     password : { type: String, required: true},
     gender : { type: String, required: true},
     month : { type: String, required: true},
-    date : { type: String, required: true},
-    year : { type: String, required: true},
+    date : { type: Date, min:5, max: 10,required: true},
+    year : { type: String, min:4, max:4, required: true},
     likedSongs : { type: [String], default: []},
     playlist : { type: [String], default: []},
     isAdmin : { type: Boolean, default: false}
@@ -21,7 +21,7 @@ userSchema.methods.gerenateAuthToken = ()=> {
         _id: this._id,
         name: this.name,
         isAdmin: this.isAdmin
-    }, privateKey, {expiresIn: '7d'})
+    }, privateKey, {expiresIn: '1d'})
 
     return token
 }
