@@ -6,12 +6,13 @@ const {authenticationTokenUser, authenticationTokenAdmin} = require('../middlewa
 const validObjectId = require('../middleware/validObjectId')
 
 //rotas que o usuario tem permissão de usar
-router.post('/user', UserController.createUser)
+router.post('/register', AuthController.registerCredentials)
 router.post('/login', AuthController.loginUserCredentials)
-router.put('/user/:id', authenticationTokenUser, validObjectId, UserController.updateUser)
+//router.put('/user/:id', authenticationTokenUser, validObjectId, UserController.) em andamento
 
 //rotas que o admin tem permissão para usar
 router.delete('/admin/:id', authenticationTokenAdmin, UserController.deleteUser)
 router.get('/admin',authenticationTokenAdmin ,UserController.getAllUsers)
 router.get('/admin/:id',authenticationTokenAdmin,validObjectId ,UserController.getUsersById)
+
 module.exports = router
