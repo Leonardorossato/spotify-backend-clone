@@ -12,7 +12,7 @@ router.post('/login', AuthController.loginUserCredentials)
 
 //rotas que o admin tem permissão para usar
 router.delete('/admin/:id', authenticationTokenAdmin, UserController.deleteUser)
-router.get('/admin',authenticationTokenAdmin ,UserController.getAllUsers)
+router.get('/all',UserController.getAllUsers)
 router.get('/admin/:id',authenticationTokenAdmin,validObjectId ,UserController.getUsersById)
 
 module.exports = router

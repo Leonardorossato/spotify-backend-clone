@@ -9,8 +9,7 @@ const userSchema = new mongoose.Schema({
     password : { type: String, required: true},
     gender : { type: String, required: true},
     month : { type: String, required: true},
-    date : { type: Date, min:5, max: 10,required: true},
-    year : { type: String, min:4, max:4, required: true},
+    date : { type: Date,required: true},
     likedSongs : { type: [String], default: []},
     playlist : { type: [String], default: []},
     isAdmin : { type: Boolean, default: false}

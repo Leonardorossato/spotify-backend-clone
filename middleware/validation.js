@@ -8,7 +8,6 @@ const validationUser = (user) =>{
         password: passwordComplexity().required(),
         month: Joi.string().required(),
         date: Joi.string().required(),
-        year: Joi.string().required(),
         gender: Joi.string().valid("male", "female", "non-binary").required()
     })
     return schema.validate(user)
