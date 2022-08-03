@@ -20,6 +20,17 @@ class UserController{
         }
     }
 
+    static UpdateUser = async(req, res) =>{
+        try {
+            const user = await Users.findByIdAndUpdate(req.params.id, 
+            {$set : req.body}, {$new: true}).select("-password -__v") 
+            
+            return res.status(200).json(user)
+        } catch (error) {
+            return res.status(500).json({error: error.message})
+        } 
+    }
+
     static deleteUser = async(req, res) => {
         try {
             await Users.findByIdAndDelete(req.params.id)
