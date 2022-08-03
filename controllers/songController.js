@@ -43,24 +43,23 @@ class SongController{
     }
 
     static LikedSongs = async(req, res) => {
+        let resMessage = "";
         try {
-            let resMessage = ""
             const song = await Songs.findById(req.params.id)
             if(!song) res.status(400).json({message: "Song dosent not exists."})
 
             const user = await Users.findById(req.user._id)
             const index = user.likedSongs.indexOf(song._id)
-            console.log(index)
 
             if(index === -1) {
                 user.likedSongs.push(song._id) 
-                resMessage ="Added to your liked songs."
+                resMessage = "Added to your liked songs.";
             }else{
-                user.likedSongs.splice(index,1)
-                resMessage: "Removed from your liked songs."
+                user.likedSongs.splice(index, 1)
+                resMessage ="Removed from your liked songs.";
             }
             await user.save()
-            return res.status(200).json({message: resMessage})
+            return res.status(200).send({message : resMessage})
         } catch (error) {
             return res.status(500).json({message: error.message})
         }
@@ -69,7 +68,7 @@ class SongController{
     static getAllLikedSongs = async (req, res) => {
         try {
             const user = await Users.findById(req.user._id)
-            const songs = await Songs.find({id : user.likedSongs})
+            const songs = await Songs.find({_id : user.likedSongs})
             return res.status(200).json(songs)
         } catch (error) {
             return res.status(500).json({error: error.message})

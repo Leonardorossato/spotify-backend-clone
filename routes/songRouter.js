@@ -8,7 +8,6 @@ router.get('/', SongController.getAllSong)
 router.get('/song/user/like/:id', authenticationTokenUser ,SongController.getAllLikedSongs)
 router.post('/song/admin', authenticationTokenAdmin ,SongController.createSong)
 router.put('/admin/song/:id', authenticationTokenAdmin, validObjectId, SongController.updateSong)
-router.put('/song/liked/:id', validObjectId, authenticationTokenUser, SongController.LikedSongs)
 router.delete('/admin/song/:id', authenticationTokenAdmin, validObjectId, SongController.deleteSong)
 
 module.exports = router
