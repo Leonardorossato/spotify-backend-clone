@@ -6,8 +6,7 @@ const validationUser = (user) =>{
         name: Joi.string().min(5).max(100).required(),
         email: Joi.string().email().min(3).max(200).required(),
         password: passwordComplexity().required(),
-        month: Joi.string().required(),
-        date: Joi.string().required(),
+        birth_date: Joi.string().required(),
         gender: Joi.string().valid("male", "female", "non-binary").required()
     })
     return schema.validate(user)

@@ -8,8 +8,7 @@ const userSchema = new mongoose.Schema({
     email : { type: String, required: true, unique: true},
     password : { type: String, required: true},
     gender : { type: String, required: true},
-    month : { type: String, required: true},
-    date : { type: Date,required: true},
+    birth_date: { type: String, required: true},
     likedSongs : { type: [String], default: []},
     playlist : { type: [String], default: []},
     isAdmin : { type: Boolean, default: false}
