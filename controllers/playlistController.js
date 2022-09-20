@@ -2,7 +2,6 @@ const Joi = require("joi");
 const { validationPlaylist } = require("../middleware/validation");
 const Playlists = require("../models/Playlist");
 const Users = require("../models/Users");
-
 class PlaylistController{
     static createPlaylist = async(req, res) => {
 
@@ -32,30 +31,75 @@ class PlaylistController{
     }
 
     static editPlaylistById = async(req, res)=>{
-        const schema = Joi.object({
-            name: Joi.string().required(),
-            desc: Joi.string().allow(""),
-            img: Joi.string().allow(""),
-        });
         try {
+            const schema = Joi.object({
+                name: Joi.string().required(),
+                desc: Joi.string().allow(""),
+                img: Joi.string().allow(""),
+            }); 
             const { error } = schema.validate(req.body);
             if (error) return res.status(400).send({ message: error.details[0].message });
 
             const playlist = await Playlists.findById(req.params.id)
             if (!playlist) return res.status(404).send({ message: "Playlist not found" });
 
-            const user = await Users.findById({user : user['_id']._id}).lean()
-            if (!user._id.equals(playlist.user))
+            const user = await Users.findById({_id: req.user._id}).lean()
+            if (!user._id.equals(playlist.user)){
                 return res.status(403).send({ message: "User don't have access to edit!" });
+            }
 
             playlist.name = req.body.name;
             playlist.desc = req.body.desc;
             playlist.img = req.body.img;
-            await playlist.save();
-
-            return res.status(200).json({ message: "Playlist updatedq successfully" });
+            await playlist.save().then(()=>{
+                return res.status(200).json(playlist);
+            })
         } catch (error) {
             return res.status(500).json({error: error.message})
+        }
+    }
+
+    static addSongInPlaylist =async(req, res) =>{
+        try {
+
+            const schema = Joi.object({
+                playlistId: Joi.string().required(),
+                songId: Joi.string().required(),
+            });
+            const { error } = schema.validate(req.body);
+            if (error) return res.status(400).send({ message: error.details[0].message });
+            
+            const user = await Users.findById(req.user._id).lean();
+            const playlist = await Playlists.findById(req.body.playlistId).lean();
+            if (!user._id.equals(playlist.user))
+                return res.status(403).send({ message: "User don't have access to add!" });
+            
+            if(playlist.songs.indexOf(req.body.songId) === -1) {
+                playlist.songs.push(req.body.songId);
+            }
+            await playlist.save();
+            return res.status(200).json({ data: playlist, message: "Added to playlist" });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
+    static deletePlaylistById = async(req, res)=>{
+        try {
+           
+            const user = await Users.findById(req.user._id).lean();
+            const playlist = await Playlists.findById(req.params.id);
+            if (!user._id.equals(playlist.user))
+                return res.status(403).json({ message: "User don't have access to delete!" });
+            
+            const index = user.playlists.indexOf(req.params.id).lean();
+            user.playlists.splice(index, 1);
+
+            await user.save();
+            await playlist.remove();
+            return res.status(200).json({ message: "Removed from library" });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
         }
     }
 }
