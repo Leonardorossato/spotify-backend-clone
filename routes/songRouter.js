@@ -4,10 +4,10 @@ const { authenticationTokenAdmin, authenticationTokenUser } = require('../middle
 const validObjectId = require('../middleware/validObjectId')
 const router = express.Router()
 
-router.get('/', SongController.getAllSong)
-router.get('/song/user/like/:id', authenticationTokenUser ,SongController.getAllLikedSongs)
-router.post('/song/admin', authenticationTokenAdmin ,SongController.createSong)
+router.get('/all', SongController.getAllSong)
+router.post('/admin/create', authenticationTokenAdmin ,SongController.createSong)
 router.put('/admin/song/:id', authenticationTokenAdmin, validObjectId, SongController.updateSong)
+router.put('/like/song/:id', validObjectId,authenticationTokenUser,SongController.LikedSongs)
 router.delete('/admin/song/:id', authenticationTokenAdmin, validObjectId, SongController.deleteSong)
 
 module.exports = router
