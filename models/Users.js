@@ -9,12 +9,12 @@ const userSchema = new mongoose.Schema({
     password : { type: String, required: true},
     gender : { type: String, required: true},
     birth_date: { type: String, required: true},
-    likedSongs : { type: [String], default: []},
-    playlist : { type: [String], default: []},
+    likedSongs : { type: [String], default: [], required: false},
+    playlist : { type: [String], default: [], required: false},
     isAdmin : { type: Boolean, default: false}
 })
 
-userSchema.methods.gerenateAuthToken = ()=> {
+userSchema.methods.gerenateAuthToken = function() {
     const token = jwt.sign({
         _id: this._id,
         name: this.name,
