@@ -70,7 +70,7 @@ class PlaylistController{
             if (error) return res.status(400).send({ message: error.details[0].message });
             
             const user = await Users.findById(req.user._id).lean();
-            const playlist = await Playlists.findById(req.body.playlistId).lean();
+            const playlist = await Playlists.findById(req.body.playlistId)
             if (!user._id.equals(playlist.user))
                 return res.status(403).send({ message: "User don't have access to add!" });
             
@@ -87,17 +87,17 @@ class PlaylistController{
     static deletePlaylistById = async(req, res)=>{
         try {
            
-            const user = await Users.findById(req.user._id).lean();
-            const playlist = await Playlists.findById(req.params.id);
+            const user = await Users.findById(req.user._id)
+            const playlist = await Playlists.findById(req.params.id)
             if (!user._id.equals(playlist.user))
                 return res.status(403).json({ message: "User don't have access to delete!" });
             
-            const index = user.playlists.indexOf(req.params.id).lean();
-            user.playlists.splice(index, 1);
+            const index = user.playlist.indexOf(req.params.id)
+            user.playlist.splice(index, 1);
 
             await user.save();
             await playlist.remove();
-            return res.status(200).json({ message: "Removed from library" });
+            return res.status(200).json({ message: "Playlist remove from library" });
         } catch (error) {
             return res.status(500).json({ error: error.message });
         }
