@@ -23,4 +23,15 @@ const validationSongs = (song) =>{
     return schema.validate(song)
 }
 
-module.exports = {validationUser, validationSongs}
+const validationPlaylist = (playList) => {
+	const schema = Joi.object({
+		name: Joi.string().required(),
+		user: Joi.string().required(),
+		desc: Joi.string().allow(""),
+		songs: Joi.array().items(Joi.string()),
+		img: Joi.string().allow(""),
+	});
+	return schema.validate(playList);
+};
+
+module.exports = {validationUser, validationSongs, validationPlaylist}
