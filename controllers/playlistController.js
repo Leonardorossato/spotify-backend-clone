@@ -41,10 +41,10 @@ class PlaylistController{
             const { error } = schema.validate(req.body);
             if (error) return res.status(400).send({ message: error.details[0].message });
 
-            const playlist = await Playlists.findById(req.params.id);
+            const playlist = await Playlists.findById(req.params.id)
             if (!playlist) return res.status(404).send({ message: "Playlist not found" });
 
-            const user = await Users.findById(req.user._id).lean();
+            const user = await Users.findById({user : user['_id']._id}).lean()
             if (!user._id.equals(playlist.user))
                 return res.status(403).send({ message: "User don't have access to edit!" });
 
@@ -53,9 +53,9 @@ class PlaylistController{
             playlist.img = req.body.img;
             await playlist.save();
 
-            return res.status(200).send({ message: "Playlist updatedq successfully" });
+            return res.status(200).json({ message: "Playlist updatedq successfully" });
         } catch (error) {
-            
+            return res.status(500).json({error: error.message})
         }
     }
 }
