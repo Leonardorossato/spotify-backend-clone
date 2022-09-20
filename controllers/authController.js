@@ -26,8 +26,7 @@ class AuthController{
             email : req.body.email,
             password : CryptoJs.AES.encrypt(req.body.password, secretSalt).toString(),
             gender : req.body.gender,
-            month : req.body.month,
-            date : req.body.date
+            birth_date : req.body.birth_date,
         })
         try {
             
