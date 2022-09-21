@@ -8,7 +8,7 @@ const validObjectId = require('../middleware/validObjectId')
 //rotas que o usuario tem permissão de usar
 router.post('/register', AuthController.registerCredentials)
 router.post('/login', AuthController.loginUserCredentials)
-router.put('/user/:id', authenticationTokenUser, validObjectId, UserController.UpdateUser)
+router.put('/update/:id', authenticationTokenUser, validObjectId, UserController.UpdateUser)
 
 //rotas que o admin tem permissão para usar
 router.delete('/admin/:id', authenticationTokenAdmin, UserController.deleteUser)

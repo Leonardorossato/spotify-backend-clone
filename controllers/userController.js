@@ -23,7 +23,7 @@ class UserController{
     static UpdateUser = async(req, res) =>{
         try {
             const user = await Users.findByIdAndUpdate(req.params.id, 
-            {$set : req.body}, {$new: true}).select("-password -__v") 
+            {$set : req.body}, {$new: true}).select("-password -__v").lean()
             
             return res.status(200).json(user)
         } catch (error) {
