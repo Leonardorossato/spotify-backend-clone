@@ -1,6 +1,6 @@
 ## Description
 
-- Fiz uma api do spotify so do backend com algumas funções.
+- Fiz uma api clone do spotify-backend com algumas funções.
 
 ## Installation
 
@@ -10,5 +10,9 @@
 
 - Node.Js
 - JavaScript
-- MongoDB [https://www.mongodb.com](https://www.mongodb.com)]
+- MongoDB [https://www.mongodb.com](https://www.mongodb.com)
 - Express.Js 
+
+## Run the application
+
+- yarn server
