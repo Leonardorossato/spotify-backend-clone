@@ -11,7 +11,7 @@ router.post('/login', AuthController.loginUserCredentials)
 router.put('/update/:id', authenticationTokenUser, validObjectId, UserController.UpdateUser)
 
 //rotas que o admin tem permissão para usar
-router.delete('/admin/:id', authenticationTokenAdmin, UserController.deleteUser)
+router.delete('/user/:id',authenticationTokenUser ,authenticationTokenAdmin, UserController.deleteUser)
 router.get('/all',authenticationTokenAdmin,UserController.getAllUsers)
 router.get('/admin/:id',authenticationTokenAdmin,validObjectId ,UserController.getUsersById)
 
