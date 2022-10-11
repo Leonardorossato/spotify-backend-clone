@@ -5,6 +5,7 @@ const validObjectId = require('../middleware/validObjectId')
 const router = express.Router()
 
 router.get('/all', authenticationTokenUser,PlaylistController.getAllPlaylists)
+router.get('/search', authenticationTokenUser, PlaylistController.searchPartitionPlaylist)
 router.post('/create', authenticationTokenUser, PlaylistController.createPlaylist)
 router.put('/edit/:id', validObjectId, authenticationTokenUser, PlaylistController.editPlaylistById)
 router.put('/add/song', authenticationTokenUser, PlaylistController.addSongInPlaylist)
