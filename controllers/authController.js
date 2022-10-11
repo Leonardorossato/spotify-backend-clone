@@ -8,10 +8,14 @@ class AuthController{
     static loginUserCredentials = async(req, res)=>{
         try {
             const user = await Users.findOne({email: req.body.email})
-            if(!user) return res.status(403).json({message: 'Invalid email address or password.'})
+            if(!user) {
+                return res.status(403).json({message: 'Invalid email address or password.'})
+            }
 
             const validPassword = await CryptoJs.DES.decrypt(req.body.password, user.password)
-            if(!validPassword) return res.status(400).json({message: 'Invalid  password.'})
+            if(!validPassword) {
+                return res.status(400).json({message: 'Invalid  password.'})
+            }
 
             const token = user.gerenateAuthToken()
             return res.status(200).json({data : token, message: 'Signing successfully.'})
