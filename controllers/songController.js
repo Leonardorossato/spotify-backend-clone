@@ -65,6 +65,23 @@ class SongController{
             return res.status(500).json({message: error.message})
         }
     }
+
+    static searchPartitionSong = async(req, res) => {
+        try {
+            let {page, limit, sort, asc} = req.query
+            if(!page){
+                page = 1
+            }
+            if(!limit){
+                limit = 10
+            }
+            let skip = (page - 1) * 10
+            const song = await Songs.find().sort({[sort]:-1}).skip(skip).limit(limit)
+            return res.status(200).json({song:song ,page:page+1, limit:limit})
+        } catch (error) {
+            return res.status(500).json({error: error.message})
+        }
+    }
 }
 
 module.exports = SongController
