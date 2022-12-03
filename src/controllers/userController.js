@@ -1,4 +1,4 @@
-const Users = require('../src/models/Users')
+const Users = require('../models/Users')
 
 class UserController{
 

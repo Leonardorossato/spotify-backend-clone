@@ -1,4 +1,4 @@
-const Users = require("../src/models/Users")
+const Users = require("../models/Users")
 const CryptoJs  = require("crypto-js")
 const { validationUser } = require('../middleware/validation')
 require('dotenv').config()

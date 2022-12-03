@@ -1,6 +1,6 @@
 const { validationSongs } = require("../middleware/validation")
-const Songs = require("../src/models/Songs")
-const Users = require('../src/models/Users')
+const Songs = require("../models/Songs")
+const Users = require('../models/Users')
 
 class SongController{
     static createSong = async(req, res) => {

@@ -4,9 +4,9 @@ const bodyParser = require('body-parser')
 require('dotenv').config()
 const PORT = process.env.PORT
 const mongoConnection = require('./connection/mongoConnection')
-const userRouter = require('../routes/userRouter')
-const songRouter = require('../routes/songRouter')
-const playlistRouter = require('../routes/playlistRouter')
+const userRouter = require('./routes/userRouter')
+const songRouter = require('./routes/songRouter')
+const playlistRouter = require('./routes/playlistRouter')
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))

@@ -1,7 +1,7 @@
 const Joi = require("joi");
 const { validationPlaylist } = require("../middleware/validation");
-const Playlists = require("../src/models/Playlist");
-const Users = require("../src/models/Users");
+const Playlists = require("../models/Playlist");
+const Users = require("../models/Users");
 class PlaylistController{
     static createPlaylist = async(req, res) => {
 
