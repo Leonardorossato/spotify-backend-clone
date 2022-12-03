@@ -18,7 +18,7 @@ class AuthController{
             }
 
             const token = user.gerenateAuthToken()
-            return res.status(200).json({data : token, message: 'Signing successfully.'})
+            return res.status(200).json({access_token: token})
         } catch (error) {
             return res.status(400).json({message: 'Invalid  login credentials.'})
         }

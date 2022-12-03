@@ -4,7 +4,6 @@ const Playlists = require("../models/Playlist");
 const Users = require("../models/Users");
 class PlaylistController{
     static createPlaylist = async(req, res) => {
-
         try {
             const { error } = validationPlaylist(req.body);
             if (error) {
