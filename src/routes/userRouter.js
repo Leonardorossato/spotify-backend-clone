@@ -1,13 +1,13 @@
 const express = require('express')
-const router = express.Router()
 const AuthController = require('../controllers/authController')
-const UserController = require('../controllers/userController')
+const router = express.Router()
+
 const {authenticationTokenUser, authenticationTokenAdmin} = require('../middleware/authentication')
 const validObjectId = require('../middleware/validObjectId')
 
 //rotas que o usuario tem permissão de usar
-router.post('/register', AuthController.registerCredentials)
-router.post('/login', AuthController.loginUserCredentials)
+router.post('/register', AuthController.register)
+router.post('/login', AuthController.login)
 router.put('/update/:id', authenticationTokenUser, validObjectId, UserController.UpdateUser)
 
 //rotas que o admin tem permissão para usar

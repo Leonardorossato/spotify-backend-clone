@@ -5,7 +5,7 @@ require('dotenv').config()
 const secretSalt = process.env.secretSalt 
 
 class AuthController{
-    static loginUserCredentials = async(req, res)=>{
+    static login = async(req, res)=>{
         try {
             const user = await Users.findOne({email: req.body.email})
             if(!user) {
@@ -24,7 +24,7 @@ class AuthController{
         }
     }
 
-    static registerCredentials  = async(req, res) => {
+    static register  = async(req, res) => {
         const newUser = new Users({
             name : req.body.name,
             email : req.body.email,
