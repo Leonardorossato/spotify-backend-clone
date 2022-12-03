@@ -11,7 +11,7 @@ class UserController{
         }
     }
 
-    static getAllUsers = async(req, res)=>{
+    static all = async(req, res)=>{
         try {
             const user = await Users.find().select("-password -__v")
             return res.status(200).json(user)
@@ -20,7 +20,7 @@ class UserController{
         }
     }
 
-    static UpdateUser = async(req, res) =>{
+    static upddate = async(req, res) =>{
         try {
             const user = await Users.findByIdAndUpdate(req.params.id, 
             {$set : req.body}, {$new: true}).select("-password -__v").lean()
@@ -31,7 +31,7 @@ class UserController{
         } 
     }
 
-    static deleteUser = async(req, res) => {
+    static deleted = async(req, res) => {
         try {
             await Users.findByIdAndDelete(req.params.id)
             return res.status(200).json({message: 'User successfully deleted'})
